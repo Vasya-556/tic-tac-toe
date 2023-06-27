@@ -1,5 +1,7 @@
 var x_counter = 0;
 var o_counter = 0;
+var move = 0;
+
 
 var used_cell = [
     false,false,false,
@@ -10,6 +12,16 @@ var cell = [
     '','','',
     '','',''];
 
+function clearBoard(){
+    for (var i = 0; i < 9; i++){
+        used_cell[i] = false;
+        cell[i] = '';
+        document.getElementById(`b${i+1}`).innerHTML = '';
+        document.getElementById(`b${i+1}`).disabled = false;
+    }
+
+    return false;
+}
 
 function check(){
     var isWin = null;
@@ -71,11 +83,23 @@ function check(){
     if (isWin == true){
         x_counter++;
         x_score.innerHTML = `X : ${x_counter}`;
+        for (var i = 0; i < 9; i++){
+            if(used_cell[i] == false){
+                var id = `b${i+1}`;
+                document.getElementById(id).disabled = true;
+            }
+        }
     }
     
     if(isWin == false){
         o_counter++;
         o_score.innerHTML = `O : ${o_counter}`;
+        for (var i = 0; i < 9; i++){
+            if(used_cell[i] == false){
+                var id = `b${i+1}`;
+                document.getElementById(id).disabled = true;
+            }
+        }
     }
     
 }
@@ -149,10 +173,10 @@ function enable(){
 function process(that){
     
     x_move(that);
-
+    move ++;
     var radioGroup = document.querySelectorAll('input[name="radioGroup"]');
     var selectedOption;
-    var mode = 'easy';
+    var mode = '';
 
     for (var i = 0; i < radioGroup.length; i++) {
     if (radioGroup[i].checked) {
@@ -168,8 +192,12 @@ function process(that){
     } else if (selectedOption === "option3") {
         mode = 'friend';
     }
-
-    o_move(that);
+    console.log(move);
+    if(move < 5)
+        o_move(mode);
+    else{
+        move = 0;
+    }
 
     check();
 
@@ -187,13 +215,48 @@ function x_move(that){
     enable();
 }
 
-function o_move(that){
+function o_move(difficulty){
+
+    var other;
+
+    if(difficulty == 'easy'){
+        var id = generate_random();
+        other = document.getElementById(`b${id}`);
+    }
+
+    if(difficulty == 'normal'){
+        if (!used_cell[4])
+            other = document.getElementById('b5');
+        else {
+            var id = generate_random();
+            other = document.getElementById(`b${id}`);
+        }
+        // if(cell[0] == 'x' && cell[1] == 'x')
+        //     other = document.getElementById('b3');
+    }
+
     disable();
 
-    that.innerHTML = "O";
-    that.style.fontSize = '70px';
-    that.style.color = '#333';
-    use(that.id,'o');
+
+
+    other.innerHTML = "O";
+    other.style.fontSize = '70px';
+    other.style.color = '#333';
+    use(other.id,'o');
 
     enable();
+}
+
+function generate_random(){
+    var randomNum;
+    while (true){
+        randomNum = Math.floor(Math.random() * 9) + 1;
+        if (used_cell[randomNum - 1] == true){
+            continue;
+        }
+        else
+            break;
+    }
+    var number = randomNum; 
+    return number;
 }

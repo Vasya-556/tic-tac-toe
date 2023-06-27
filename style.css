@@ -43,46 +43,54 @@
 }
 
 #b1 {
-    top: 215px;
+    top: 195px;
     left: 8px;
 }
 
 #b2 {
-    top: 215px;
+    top: 195px;
     left: 109px;
 }
 
 #b3 {
-    top: 215px;
+    top: 195px;
     left: 209px;
 }
 
 #b4 {
-    top: 315px;
+    top: 295px;
     left: 8px;
 }
 
 #b5 {
-    top: 315px;
+    top: 295px;
     left: 109px;
 }
 
 #b6 {
-    top: 315px;
+    top: 295px;
     left: 209px;
 }
 
 #b7 {
-    top: 416px;
+    top: 396px;
     left: 8px;
 }
 
 #b8 {
-    top: 416px;
+    top: 396px;
     left: 109px;
 }
 
 #b9 {
-    top: 416px;
+    top: 396px;
     left: 209px;
+}
+
+#clear-button{
+
+}
+
+#game-info{
+
 }
