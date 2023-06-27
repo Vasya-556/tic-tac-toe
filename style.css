@@ -1,0 +1,36 @@
+.vertical-line {
+    border-left: 1px solid black;
+    height: 100px;
+}
+
+.square {
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+}
+
+.horizontal-line1 {
+    border-top: 1px solid black;
+    width: 300px;
+    margin-top: 33%;
+}
+
+.horizontal-line2 {
+    border-top: 1px solid black;
+    width: 300px;
+    margin-top: 33%;
+}
+
+.vertical-line1 {
+    border-left: 1px solid black;
+    height: 300px;
+    margin-left: 33%;
+    margin-top: -66.6%;
+}
+
+.vertical-line2 {
+    border-left: 1px solid black;
+    height: 300px;
+    margin-left: 66%;
+    margin-top: -100%;
+}
