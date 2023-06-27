@@ -12,9 +12,44 @@ var cell = [
 
 
 function check(){
-    if(cell[1] == 'x' && cell[2] == 'x' && cell[3] == 'x'){
-        alert('You win');
+    var isWin = null;
+    if(cell[0] == 'x' && cell[1] == 'x' && cell[2] == 'x'){
+        isWin = true;
     }
+    else if (cell[3] == 'x' && cell[4] == 'x' && cell[5] == 'x'){
+        isWin = true;
+    }
+    else if (cell[6] == 'x' && cell[7] == 'x' && cell[8] == 'x'){
+        isWin = true;
+    }
+
+    else if (cell[0] == 'x' && cell[3] == 'x' && cell[6] == 'x'){
+        isWin = true;
+    }
+    else if (cell[1] == 'x' && cell[4] == 'x' && cell[7] == 'x'){
+        isWin = true;
+    }
+    else if (cell[2] == 'x' && cell[5] == 'x' && cell[8] == 'x'){
+        isWin = true;
+    }
+
+    else if (cell[0] == 'x' && cell[4] == 'x' && cell[8] == 'x'){
+        isWin = true;
+    }
+    else if (cell[6] == 'x' && cell[4] == 'x' && cell[2] == 'x'){
+        isWin = true;
+    }
+
+    if (isWin == true){
+        x_counter++;
+        x_score.innerHTML = `X : ${x_counter}`;
+    }
+    
+    if(isWin == false){
+        o_counter++;
+        o_score.innerHTML = `O : ${o_counter}`;
+    }
+    
 }
 
 function use(id,value){
@@ -86,8 +121,6 @@ function enable(){
 function process(that){
     disable();
 
-    check();
-
     that.innerHTML = "X";
     that.style.fontSize = '70px';
     that.style.color = '#333';
@@ -96,6 +129,7 @@ function process(that){
 
     enable();
     
+    check();
 
     return false;
 }
