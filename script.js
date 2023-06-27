@@ -40,6 +40,34 @@ function check(){
         isWin = true;
     }
 
+
+    if(cell[0] == 'o' && cell[1] == 'o' && cell[2] == 'o'){
+        isWin = false;
+    }
+    else if (cell[3] == 'o' && cell[4] == 'o' && cell[5] == 'o'){
+        isWin = false;
+    }
+    else if (cell[6] == 'o' && cell[7] == 'o' && cell[8] == 'o'){
+        isWin = false;
+    }
+
+    else if (cell[0] == 'o' && cell[3] == 'o' && cell[6] == 'o'){
+        isWin = false;
+    }
+    else if (cell[1] == 'o' && cell[4] == 'o' && cell[7] == 'o'){
+        isWin = false;
+    }
+    else if (cell[2] == 'o' && cell[5] == 'o' && cell[8] == 'o'){
+        isWin = false;
+    }
+
+    else if (cell[0] == 'o' && cell[4] == 'o' && cell[8] == 'o'){
+        isWin = false;
+    }
+    else if (cell[6] == 'o' && cell[4] == 'o' && cell[2] == 'o'){
+        isWin = false;
+    }
+
     if (isWin == true){
         x_counter++;
         x_score.innerHTML = `X : ${x_counter}`;
@@ -119,17 +147,53 @@ function enable(){
 }
 
 function process(that){
+    
+    x_move(that);
+
+    var radioGroup = document.querySelectorAll('input[name="radioGroup"]');
+    var selectedOption;
+    var mode = 'easy';
+
+    for (var i = 0; i < radioGroup.length; i++) {
+    if (radioGroup[i].checked) {
+        selectedOption = radioGroup[i].value;
+        break;
+    }
+    }
+
+    if (selectedOption === "option1") {
+        mode = 'easy';
+    } else if (selectedOption === "option2") {
+        mode = 'normal';
+    } else if (selectedOption === "option3") {
+        mode = 'friend';
+    }
+
+    o_move(that);
+
+    check();
+
+    return false;
+}
+
+function x_move(that){
     disable();
 
     that.innerHTML = "X";
     that.style.fontSize = '70px';
     that.style.color = '#333';
-
     use(that.id,'x');
 
     enable();
-    
-    check();
+}
 
-    return false;
+function o_move(that){
+    disable();
+
+    that.innerHTML = "O";
+    that.style.fontSize = '70px';
+    that.style.color = '#333';
+    use(that.id,'o');
+
+    enable();
 }
