@@ -19,87 +19,27 @@ function clearBoard(){
         document.getElementById(`b${i+1}`).innerHTML = '';
         document.getElementById(`b${i+1}`).disabled = false;
     }
+    move = 0;
 
     return false;
 }
 
 function check(){
-    var isWin = null;
-    if(cell[0] == 'x' && cell[1] == 'x' && cell[2] == 'x'){
-        isWin = true;
-    }
-    else if (cell[3] == 'x' && cell[4] == 'x' && cell[5] == 'x'){
-        isWin = true;
-    }
-    else if (cell[6] == 'x' && cell[7] == 'x' && cell[8] == 'x'){
-        isWin = true;
-    }
-
-    else if (cell[0] == 'x' && cell[3] == 'x' && cell[6] == 'x'){
-        isWin = true;
-    }
-    else if (cell[1] == 'x' && cell[4] == 'x' && cell[7] == 'x'){
-        isWin = true;
-    }
-    else if (cell[2] == 'x' && cell[5] == 'x' && cell[8] == 'x'){
-        isWin = true;
-    }
-
-    else if (cell[0] == 'x' && cell[4] == 'x' && cell[8] == 'x'){
-        isWin = true;
-    }
-    else if (cell[6] == 'x' && cell[4] == 'x' && cell[2] == 'x'){
-        isWin = true;
-    }
-
-
-    if(cell[0] == 'o' && cell[1] == 'o' && cell[2] == 'o'){
-        isWin = false;
-    }
-    else if (cell[3] == 'o' && cell[4] == 'o' && cell[5] == 'o'){
-        isWin = false;
-    }
-    else if (cell[6] == 'o' && cell[7] == 'o' && cell[8] == 'o'){
-        isWin = false;
-    }
-
-    else if (cell[0] == 'o' && cell[3] == 'o' && cell[6] == 'o'){
-        isWin = false;
-    }
-    else if (cell[1] == 'o' && cell[4] == 'o' && cell[7] == 'o'){
-        isWin = false;
-    }
-    else if (cell[2] == 'o' && cell[5] == 'o' && cell[8] == 'o'){
-        isWin = false;
-    }
-
-    else if (cell[0] == 'o' && cell[4] == 'o' && cell[8] == 'o'){
-        isWin = false;
-    }
-    else if (cell[6] == 'o' && cell[4] == 'o' && cell[2] == 'o'){
-        isWin = false;
-    }
-
-    if (isWin == true){
-        x_counter++;
-        x_score.innerHTML = `X : ${x_counter}`;
-        for (var i = 0; i < 9; i++){
-            if(used_cell[i] == false){
-                var id = `b${i+1}`;
-                document.getElementById(id).disabled = true;
-            }
+    var winningCombinations = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // рядки
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // стовпці
+        [0, 4, 8], [2, 4, 6] // діагоналі
+    ];
+    
+    for (var i = 0; i < winningCombinations.length; i++) {
+        var [a, b, c] = winningCombinations[i];
+        if (cell[a] === cell[b] && cell[a] === cell[c] && cell[a] !== '') {
+            return cell[a]; // Повертаємо символ переможця ('x' або 'o')
         }
     }
     
-    if(isWin == false){
-        o_counter++;
-        o_score.innerHTML = `O : ${o_counter}`;
-        for (var i = 0; i < 9; i++){
-            if(used_cell[i] == false){
-                var id = `b${i+1}`;
-                document.getElementById(id).disabled = true;
-            }
-        }
+    if (!cell.includes('')) {
+        return 'tie'; // Повертаємо 'tie' у випадку нічиєї
     }
     
 }
@@ -190,16 +130,26 @@ function process(that){
     } else if (selectedOption === "option2") {
         mode = 'normal';
     } else if (selectedOption === "option3") {
-        mode = 'friend';
+        mode = 'hard';
     }
-    console.log(move);
     if(move < 5)
         o_move(mode);
     else{
         move = 0;
     }
 
-    check();
+    var winner = check();
+    if (winner == 'x'){
+        x_counter++;
+        x_score.innerHTML = `X : ${x_counter}`;
+    }
+    else if (winner == 'o'){
+        o_counter++;
+        o_score.innerHTML = `O : ${o_counter}`;
+    }
+    else{
+
+    }
 
     return false;
 }
@@ -223,16 +173,40 @@ function o_move(difficulty){
         var id = generate_random();
         other = document.getElementById(`b${id}`);
     }
-
-    if(difficulty == 'normal'){
+    else if(difficulty == 'normal'){
         if (!used_cell[4])
             other = document.getElementById('b5');
-        else {
+        else{
             var id = generate_random();
             other = document.getElementById(`b${id}`);
         }
-        // if(cell[0] == 'x' && cell[1] == 'x')
-        //     other = document.getElementById('b3');
+    }
+    else if (difficulty == 'hard'){
+        var bestScore = -Infinity;
+        var bestMove;
+
+        for (var i = 0; i < 9; i++) {
+            if (!used_cell[i]) {
+                // Спробувати зробити хід
+                used_cell[i] = true;
+                cell[i] = 'o';
+
+                // Рекурсивно викликати алгоритм мінімаксу для гравця 'x'
+                var score = minimax(cell, used_cell, false);
+
+                // Скасувати хід
+                used_cell[i] = false;
+                cell[i] = '';
+
+                // Оновити найкращий хід
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = i;
+                }
+            }
+        }
+
+        other = document.getElementById(`b${bestMove + 1}`);
     }
 
     disable();
@@ -259,4 +233,62 @@ function generate_random(){
     }
     var number = randomNum; 
     return number;
+}
+
+function minimax(cell, used_cell, isMaximizing) {
+    var result = check();
+
+    if (result === 'x') {
+        return -1; // Гравець 'x' виграв, повертаємо -1
+    } else if (result === 'o') {
+        return 1; // Гравець 'o' виграв, повертаємо 1
+    } else if (result === 'tie') {
+        return 0; // Нічия, повертаємо 0
+    }
+
+    if (isMaximizing) {
+        var bestScore = -Infinity;
+
+        for (var i = 0; i < 9; i++) {
+            if (!used_cell[i]) {
+                // Спробувати зробити хід
+                used_cell[i] = true;
+                cell[i] = 'o';
+
+                // Рекурсивно викликати алгоритм мінімаксу для гравця 'x'
+                var score = minimax(cell, used_cell, false);
+
+                // Скасувати хід
+                used_cell[i] = false;
+                cell[i] = '';
+
+                // Оновити найкращий рахунок
+                bestScore = Math.max(score, bestScore);
+            }
+        }
+
+        return bestScore;
+    } else {
+        var bestScore = Infinity;
+
+        for (var i = 0; i < 9; i++) {
+            if (!used_cell[i]) {
+                // Спробувати зробити хід
+                used_cell[i] = true;
+                cell[i] = 'x';
+
+                // Рекурсивно викликати алгоритм мінімаксу для гравця 'o'
+                var score = minimax(cell, used_cell, true);
+
+                // Скасувати хід
+                used_cell[i] = false;
+                cell[i] = '';
+
+                // Оновити найкращий рахунок
+                bestScore = Math.min(score, bestScore);
+            }
+        }
+
+        return bestScore;
+    }
 }
