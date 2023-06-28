@@ -2,6 +2,8 @@
     width: 300px;
     height: 300px;
     border: 1px solid black;
+    position: absolute;
+    margin-left: 41.5%;
 }
 
 .horizontal-line1 {
@@ -31,66 +33,135 @@
 }
 
 .invisible-button {
-    /* border: none;
+    border: none;
     background: none;
     padding: 0;
     margin: 0;
-    opacity: 0;
-    cursor: pointer; */
+    cursor: pointer;
     width: 100px;
     height: 100px;
     position: absolute;
 }
 
 #b1 {
-    top: 195px;
-    left: 8px;
+    top: 20%;
+    left: 42.1%;
 }
 
 #b2 {
-    top: 195px;
-    left: 109px;
+    top: 20%;
+    left: 48.6%;
 }
 
 #b3 {
-    top: 195px;
-    left: 209px;
+    top: 20%;
+    left: 55.1%;
 }
 
 #b4 {
-    top: 295px;
-    left: 8px;
+    top: 33.7%;
+    left: 42.1%;
 }
 
 #b5 {
-    top: 295px;
-    left: 109px;
+    top: 33.7%;
+    left: 48.6%;
 }
 
 #b6 {
-    top: 295px;
-    left: 209px;
+    top: 33.7%;    
+    left: 55.1%;
 }
 
 #b7 {
-    top: 396px;
-    left: 8px;
+    top: 47.7%;
+    left: 42.1%;
 }
 
 #b8 {
-    top: 396px;
-    left: 109px;
+    top: 47.7%;
+    left: 48.6%;
 }
 
 #b9 {
-    top: 396px;
-    left: 209px;
+    top: 47.7%;
+    left: 55.1%;
 }
 
 #clear-button{
-    margin-top: 5px;
+    position: absolute;
+    margin-top: 21%;
+    margin-left: 49.7%;
+    background-color: rgb(15, 57, 111);
+    border: none;
+    size: 20%;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #game-info{
     margin-top: 5px;
+    position: absolute;
+    margin-top: -7%;
+    margin-left: 50.5%;
+    font-size: larger;
+}
+
+body {
+    background-color: rgb(10, 1, 170);
+}
+
+#option1{
+    accent-color: green;
+}
+
+#option2{
+    accent-color: yellow;
+}
+
+#option3{
+    accent-color: red;
+}
+
+#game-difficulty{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 150%;
+}
+
+.radio-label{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#x_score {
+    position: absolute;
+    top: 5%;
+    left: 45%;
+    font-size: 200%;
+}
+
+#o_score {
+    position: absolute;
+    top: 5%;
+    left: 55%;
+    font-size: 200%;
+
+}
+
+#option1-label {
+    color: green;
+    font-size: 120%;
+}
+
+#option2-label {
+    color: yellow;
+    font-size: 120%;
+}
+
+#option3-label {
+    color: red;
+    font-size: 120%;
 }

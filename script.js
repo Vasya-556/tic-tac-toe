@@ -142,13 +142,18 @@ function process(that){
     if (winner == 'x'){
         x_counter++;
         x_score.innerHTML = `X : ${x_counter}`;
+        document.getElementById('game-info').innerHTML = 'X is win';
+        clearBoard();
     }
     else if (winner == 'o'){
         o_counter++;
         o_score.innerHTML = `O : ${o_counter}`;
+        document.getElementById('game-info').innerHTML = 'O is win';
+        clearBoard();
     }
-    else{
-
+    else if (winner == 'tie'){
+        document.getElementById('game-info').innerHTML = 'TIE';
+        clearBoard();
     }
 
     return false;

@@ -8,17 +8,16 @@
 </head>
 <body>
     <form name="difficulty">
-    
-            <p>Game difficulty:</p>
-            <input type="radio" id="option1" name="radioGroup" value="option1">
-            <label for="option1">easy</label><br>
+        <p id="game-difficulty">Game difficulty:</p>
+        
+        <input class="radio" type="radio" id="option1" name="radioGroup" value="option1">
+        <label class="radio-label" for="option1" id="option1-label">Easy</label><br>
 
-            <input type="radio" id="option2" name="radioGroup" value="option2" checked>
-            <label for="option2">normal</label><br>
-            
-            <input type="radio" id="option3" name="radioGroup" value="option3">
-            <label for="option3">hard</label><br>
-    
+        <input class="radio" type="radio" id="option2" name="radioGroup" value="option2" checked>
+        <label class="radio-label" for="option2" id="option2-label">Normal</label><br>
+           
+        <input class="radio" type="radio" id="option3" name="radioGroup" value="option3">
+        <label class="radio-label" for="option3" id="option3-label">Hard</label><br>
     </form>   
 
     <form name="score">
@@ -45,7 +44,7 @@
         
         <button id="clear-button" onclick="return clearBoard()">Clear</button>
     </form>
-    <b id="game-info">WIN</b>
+    <b id="game-info"></b>
     <script src="script.js"></script>
 </body>
 </html>
